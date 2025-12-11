@@ -88,4 +88,17 @@ public class Board
     {
         return _cells.Cast<char>().All(cell => cell == 'X' || cell == 'O');
     }
+
+    public List<int> GetAvailableMoves()
+    {
+        var availableMoves = new List<int>();
+        for (int position = 1; position <= 9; position++)
+        {
+            if (IsValidMove(position).HasValue)
+            {
+                availableMoves.Add(position);
+            }
+        }
+        return availableMoves;
+    }
 }

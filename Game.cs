@@ -6,13 +6,15 @@ public class Game
     private Player _currentPlayer;
     private Player _playerX;
     private Player _playerO;
+    private Random _random;
 
     public Game()
     {
         _board = new Board();
         _playerX = new Player('X');
-        _playerO = new Player('O');
+        _playerO = new Player('O', isBot: true);
         _currentPlayer = _playerX;
+        _random = new Random();
     }
     
     public void Run()
@@ -46,6 +48,14 @@ public class Game
 
     private (int line, int column) GetPlayerMove()
     {
+        if (_currentPlayer.IsBot)
+        {
+            var availableMoves = _board.GetAvailableMoves();
+            int randomPosition = availableMoves[_random.Next(availableMoves.Count)];
+            Console.WriteLine($"Le robot {_currentPlayer.Symbol} joue en position {randomPosition}");
+            return _board.IsValidMove(randomPosition)!.Value;
+        }
+
         Console.Write($"Joueur {_currentPlayer.Symbol}, choisissez une position (1-9) : ");
         string? input = Console.ReadLine();
 
