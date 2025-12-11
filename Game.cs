@@ -10,8 +10,7 @@ public class Game
         _board = new Board();
         _currentPlayer = 'X';
     }
-
-    // Étape 3 : Gestion des tours
+    
     public void Run()
     {
         Console.WriteLine("=== JEU DE MORPION ===\n");
@@ -23,6 +22,14 @@ public class Game
             // Étape 4 : Saisir et valider un coup
             int position = GetPlayerMove();
             _board.PlayMove(position, _currentPlayer);
+
+            // Étape 5 : Vérifier la victoire
+            if (_board.CheckWin(_currentPlayer))
+            {
+                _board.Display();
+                Console.WriteLine($"🎉 Le joueur {_currentPlayer} a gagné !");
+                break;
+            }
 
             SwitchPlayer();
         }
