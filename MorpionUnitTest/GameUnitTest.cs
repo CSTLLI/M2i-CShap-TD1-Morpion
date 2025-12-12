@@ -8,18 +8,8 @@ public class GameUnitTest
     public void RunGameTest()
     {
         var game = new Game();
-
-        try
-        {
-            game.Run();
-        }
-        catch (InvalidOperationException)
-        {
-
-        }
-        finally
-        {
-            Assert.True(true);
-        }
+        game.Run();
+        
+        Assert.True(true);
     }
 }
