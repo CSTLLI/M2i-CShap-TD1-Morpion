@@ -44,12 +44,12 @@ public class PlayerUnitTest
     }
 
     [Fact]
-    public void GetMove_WithBot_ShouldReturnValidMove()
+    public async Task GetMove_WithBot_ShouldReturnValidMove()
     {
         var board = new Board();
         var bot = new Player('O', isBot: true);
 
-        var (line, column) = bot.GetMove(board);
+        var (line, column) = await bot.GetMove(board);
 
         Assert.InRange(line, 0, 2);
         Assert.InRange(column, 0, 2);
@@ -57,7 +57,7 @@ public class PlayerUnitTest
     }
 
     [Fact]
-    public void GetMove_WithBot_ShouldReturnDifferentMovesOnDifferentCalls()
+    public async Task GetMove_WithBot_ShouldReturnDifferentMovesOnDifferentCalls()
     {
         var board = new Board();
         var bot = new Player('O', isBot: true);
@@ -65,7 +65,7 @@ public class PlayerUnitTest
 
         for (int i = 0; i < 20; i++)
         {
-            var move = bot.GetMove(board);
+            var move = await bot.GetMove(board);
             moves.Add(move);
             if (moves.Count >= 2)
             {
@@ -77,7 +77,7 @@ public class PlayerUnitTest
     }
 
     [Fact]
-    public void GetMove_WithBot_ShouldOnlySelectAvailableMoves()
+    public async Task GetMove_WithBot_ShouldOnlySelectAvailableMoves()
     {
         var board = new Board();
         board.PlayMove(0, 0, 'X'); // Position 1
@@ -91,14 +91,14 @@ public class PlayerUnitTest
 
         var bot = new Player('O', isBot: true);
 
-        var (line, column) = bot.GetMove(board);
+        var (line, column) = await bot.GetMove(board);
 
         Assert.Equal(2, line);
         Assert.Equal(2, column);
     }
 
     [Fact]
-    public void GetMove_WithBotOnPartiallyFilledBoard_ShouldSelectFromAvailableMoves()
+    public async Task GetMove_WithBotOnPartiallyFilledBoard_ShouldSelectFromAvailableMoves()
     {
         var board = new Board();
         board.PlayMove(0, 0, 'X'); // Position 1
@@ -113,7 +113,7 @@ public class PlayerUnitTest
             (2, 0), (2, 1)  // Positions 7, 8
         };
 
-        var move = bot.GetMove(board);
+        var move = await bot.GetMove(board);
 
         Assert.Contains(move, validPositions);
     }
@@ -135,21 +135,21 @@ public class PlayerUnitTest
     }
 
     [Fact]
-    public void GetMove_WithBot_ShouldAlwaysReturnValidCoordinates()
+    public async Task GetMove_WithBot_ShouldAlwaysReturnValidCoordinates()
     {
         var board = new Board();
         var bot = new Player('O', isBot: true);
 
         for (int i = 0; i < 100; i++)
         {
-            var (line, column) = bot.GetMove(board);
+            var (line, column) = await bot.GetMove(board);
             Assert.InRange(line, 0, 2);
             Assert.InRange(column, 0, 2);
         }
     }
 
     [Fact]
-    public void Constructor_MultipleBots_ShouldEachHaveIndependentRandomness()
+    public async Task Constructor_MultipleBots_ShouldEachHaveIndependentRandomness()
     {
         var board = new Board();
         var bot1 = new Player('O', isBot: true);
@@ -157,11 +157,11 @@ public class PlayerUnitTest
 
         var moves1 = new HashSet<(int, int)>();
         var moves2 = new HashSet<(int, int)>();
-        
+
         for (int i = 0; i < 10; i++)
         {
-            moves1.Add(bot1.GetMove(board));
-            moves2.Add(bot2.GetMove(board));
+            moves1.Add(await bot1.GetMove(board));
+            moves2.Add(await bot2.GetMove(board));
         }
 
         Assert.NotEmpty(moves1);
