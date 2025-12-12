@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TD", "TD.csproj", "{5B07A54C-80D5-49F3-B52C-9893C0711D74}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TD-Morpion", "TD-Morpion\TD-Morpion.csproj", "{C8EC03D0-B8E0-4A0C-B8D6-03776E2DA905}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TD-Morpion-UnitTest", "TD-Morpion-UnitTest\TD-Morpion-UnitTest.csproj", "{9583620D-7BF1-44B7-9C96-5AACFFF6765C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -8,9 +10,13 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5B07A54C-80D5-49F3-B52C-9893C0711D74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5B07A54C-80D5-49F3-B52C-9893C0711D74}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5B07A54C-80D5-49F3-B52C-9893C0711D74}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5B07A54C-80D5-49F3-B52C-9893C0711D74}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8EC03D0-B8E0-4A0C-B8D6-03776E2DA905}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8EC03D0-B8E0-4A0C-B8D6-03776E2DA905}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8EC03D0-B8E0-4A0C-B8D6-03776E2DA905}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8EC03D0-B8E0-4A0C-B8D6-03776E2DA905}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9583620D-7BF1-44B7-9C96-5AACFFF6765C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9583620D-7BF1-44B7-9C96-5AACFFF6765C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9583620D-7BF1-44B7-9C96-5AACFFF6765C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9583620D-7BF1-44B7-9C96-5AACFFF6765C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

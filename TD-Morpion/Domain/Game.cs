@@ -11,7 +11,7 @@ public class Game
     {
         _board = new Board();
         _playerX = new Player('X');
-        _playerO = new Player('O');
+        _playerO = new Player('O', isBot: true);
         _currentPlayer = _playerX;
     }
     
@@ -23,7 +23,7 @@ public class Game
         {
             _board.Display();
 
-            var (line, column) = GetPlayerMove();
+            var (line, column) = _currentPlayer.GetMove(_board);
             _board.PlayMove(line, column, _currentPlayer.Symbol);
 
             if (_board.CheckWin(_currentPlayer.Symbol))
@@ -42,28 +42,6 @@ public class Game
 
             SwitchPlayer();
         }
-    }
-
-    private (int line, int column) GetPlayerMove()
-    {
-        Console.Write($"Joueur {_currentPlayer.Symbol}, choisissez une position (1-9) : ");
-        string? input = Console.ReadLine();
-
-        if (int.TryParse(input, out int position))
-        {
-            var coordinates = _board.IsValidMove(position);
-            if (coordinates.HasValue)
-            {
-                return coordinates.Value;
-            }
-            Console.WriteLine("Cette case est déjà occupée ou position invalide !");
-        }
-        else
-        {
-            Console.WriteLine("Position invalide ! Réessayez.");
-        }
-
-        return GetPlayerMove();
     }
 
     private void SwitchPlayer()
