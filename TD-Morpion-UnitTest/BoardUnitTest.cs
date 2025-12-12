@@ -7,10 +7,8 @@ public class BoardUnitTest
     [Fact]
     public void Constructor_ShouldInitializeEmptyBoard()
     {
-        // Arrange & Act
         var board = new Board();
 
-        // Assert
         var availableMoves = board.GetAvailableMoves();
         Assert.Equal(9, availableMoves.Count);
     }
@@ -27,13 +25,10 @@ public class BoardUnitTest
     [InlineData(9, 2, 2)]
     public void IsValidMove_WithValidPosition_ShouldReturnCorrectCoordinates(int position, int expectedLine, int expectedColumn)
     {
-        // Arrange
         var board = new Board();
 
-        // Act
         var result = board.IsValidMove(position);
 
-        // Assert
         Assert.NotNull(result);
         Assert.Equal(expectedLine, result.Value.line);
         Assert.Equal(expectedColumn, result.Value.column);
@@ -46,40 +41,31 @@ public class BoardUnitTest
     [InlineData(100)]
     public void IsValidMove_WithInvalidPosition_ShouldReturnNull(int position)
     {
-        // Arrange
         var board = new Board();
 
-        // Act
         var result = board.IsValidMove(position);
 
-        // Assert
         Assert.Null(result);
     }
 
     [Fact]
     public void IsValidMove_WithOccupiedPosition_ShouldReturnNull()
     {
-        // Arrange
         var board = new Board();
         board.PlayMove(0, 0, 'X');
 
-        // Act
         var result = board.IsValidMove(1);
 
-        // Assert
         Assert.Null(result);
     }
 
     [Fact]
     public void PlayMove_ShouldPlaceSymbolOnBoard()
     {
-        // Arrange
         var board = new Board();
 
-        // Act
         board.PlayMove(1, 1, 'X');
 
-        // Assert
         var availableMoves = board.GetAvailableMoves();
         Assert.Equal(8, availableMoves.Count);
         Assert.DoesNotContain(5, availableMoves); // Position 5 est (1,1)
@@ -91,16 +77,13 @@ public class BoardUnitTest
     [InlineData(2, 0, 2, 1, 2, 2)] // Ligne 3
     public void CheckWin_WithWinningRow_ShouldReturnTrue(int line1, int col1, int line2, int col2, int line3, int col3)
     {
-        // Arrange
         var board = new Board();
         board.PlayMove(line1, col1, 'X');
         board.PlayMove(line2, col2, 'X');
         board.PlayMove(line3, col3, 'X');
 
-        // Act
         var result = board.CheckWin('X');
 
-        // Assert
         Assert.True(result);
     }
 
@@ -110,98 +93,79 @@ public class BoardUnitTest
     [InlineData(0, 2, 1, 2, 2, 2)] // Colonne 3
     public void CheckWin_WithWinningColumn_ShouldReturnTrue(int line1, int col1, int line2, int col2, int line3, int col3)
     {
-        // Arrange
         var board = new Board();
         board.PlayMove(line1, col1, 'O');
         board.PlayMove(line2, col2, 'O');
         board.PlayMove(line3, col3, 'O');
 
-        // Act
         var result = board.CheckWin('O');
 
-        // Assert
         Assert.True(result);
     }
 
     [Fact]
     public void CheckWin_WithWinningDiagonalTopLeftToBottomRight_ShouldReturnTrue()
     {
-        // Arrange
         var board = new Board();
         board.PlayMove(0, 0, 'X');
         board.PlayMove(1, 1, 'X');
         board.PlayMove(2, 2, 'X');
 
-        // Act
         var result = board.CheckWin('X');
 
-        // Assert
         Assert.True(result);
     }
 
     [Fact]
     public void CheckWin_WithWinningDiagonalTopRightToBottomLeft_ShouldReturnTrue()
     {
-        // Arrange
         var board = new Board();
         board.PlayMove(0, 2, 'O');
         board.PlayMove(1, 1, 'O');
         board.PlayMove(2, 0, 'O');
 
-        // Act
         var result = board.CheckWin('O');
 
-        // Assert
         Assert.True(result);
     }
 
     [Fact]
     public void CheckWin_WithNoWin_ShouldReturnFalse()
     {
-        // Arrange
         var board = new Board();
         board.PlayMove(0, 0, 'X');
         board.PlayMove(1, 1, 'X');
 
-        // Act
         var result = board.CheckWin('X');
 
-        // Assert
         Assert.False(result);
     }
 
     [Fact]
     public void IsFull_WithEmptyBoard_ShouldReturnFalse()
     {
-        // Arrange
         var board = new Board();
 
-        // Act
         var result = board.IsFull();
 
-        // Assert
         Assert.False(result);
     }
 
     [Fact]
     public void IsFull_WithPartiallyFilledBoard_ShouldReturnFalse()
     {
-        // Arrange
         var board = new Board();
         board.PlayMove(0, 0, 'X');
         board.PlayMove(1, 1, 'O');
 
-        // Act
         var result = board.IsFull();
 
-        // Assert
         Assert.False(result);
     }
 
     [Fact]
     public void IsFull_WithFullBoard_ShouldReturnTrue()
     {
-        // Arrange
         var board = new Board();
         board.PlayMove(0, 0, 'X');
         board.PlayMove(0, 1, 'O');
@@ -213,23 +177,18 @@ public class BoardUnitTest
         board.PlayMove(2, 1, 'X');
         board.PlayMove(2, 2, 'O');
 
-        // Act
         var result = board.IsFull();
 
-        // Assert
         Assert.True(result);
     }
 
     [Fact]
     public void GetAvailableMoves_WithEmptyBoard_ShouldReturn9Moves()
     {
-        // Arrange
         var board = new Board();
 
-        // Act
         var moves = board.GetAvailableMoves();
 
-        // Assert
         Assert.Equal(9, moves.Count);
         Assert.Equal(new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9 }, moves);
     }
@@ -237,16 +196,13 @@ public class BoardUnitTest
     [Fact]
     public void GetAvailableMoves_WithSomeMoves_ShouldReturnRemainingMoves()
     {
-        // Arrange
         var board = new Board();
         board.PlayMove(0, 0, 'X'); // Position 1
         board.PlayMove(1, 1, 'O'); // Position 5
         board.PlayMove(2, 2, 'X'); // Position 9
 
-        // Act
         var moves = board.GetAvailableMoves();
 
-        // Assert
         Assert.Equal(6, moves.Count);
         Assert.DoesNotContain(1, moves);
         Assert.DoesNotContain(5, moves);
@@ -256,7 +212,6 @@ public class BoardUnitTest
     [Fact]
     public void GetAvailableMoves_WithFullBoard_ShouldReturnEmptyList()
     {
-        // Arrange
         var board = new Board();
         board.PlayMove(0, 0, 'X');
         board.PlayMove(0, 1, 'O');
@@ -268,10 +223,8 @@ public class BoardUnitTest
         board.PlayMove(2, 1, 'X');
         board.PlayMove(2, 2, 'O');
 
-        // Act
         var moves = board.GetAvailableMoves();
 
-        // Assert
         Assert.Empty(moves);
     }
 }

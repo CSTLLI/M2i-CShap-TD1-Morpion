@@ -8,13 +8,10 @@ public class GameUnitTest
     [Fact]
     public void Constructor_ShouldInitializeGameWithBoardAndPlayers()
     {
-        // Arrange & Act
         var game = new Game();
 
-        // Assert
         Assert.NotNull(game);
 
-        // Utilisation de la réflexion pour vérifier l'état interne
         var boardField = typeof(Game).GetField("_board", BindingFlags.NonPublic | BindingFlags.Instance);
         var playerXField = typeof(Game).GetField("_playerX", BindingFlags.NonPublic | BindingFlags.Instance);
         var playerOField = typeof(Game).GetField("_playerO", BindingFlags.NonPublic | BindingFlags.Instance);
@@ -29,10 +26,8 @@ public class GameUnitTest
     [Fact]
     public void Constructor_ShouldInitializePlayerXAsCurrentPlayer()
     {
-        // Arrange & Act
         var game = new Game();
 
-        // Assert
         var playerXField = typeof(Game).GetField("_playerX", BindingFlags.NonPublic | BindingFlags.Instance);
         var currentPlayerField = typeof(Game).GetField("_currentPlayer", BindingFlags.NonPublic | BindingFlags.Instance);
 
@@ -45,10 +40,8 @@ public class GameUnitTest
     [Fact]
     public void Constructor_ShouldInitializePlayerXWithSymbolX()
     {
-        // Arrange & Act
         var game = new Game();
 
-        // Assert
         var playerXField = typeof(Game).GetField("_playerX", BindingFlags.NonPublic | BindingFlags.Instance);
         var playerX = playerXField?.GetValue(game) as Player;
 
@@ -59,10 +52,8 @@ public class GameUnitTest
     [Fact]
     public void Constructor_ShouldInitializePlayerOWithSymbolO()
     {
-        // Arrange & Act
         var game = new Game();
 
-        // Assert
         var playerOField = typeof(Game).GetField("_playerO", BindingFlags.NonPublic | BindingFlags.Instance);
         var playerO = playerOField?.GetValue(game) as Player;
 
@@ -73,10 +64,8 @@ public class GameUnitTest
     [Fact]
     public void Constructor_ShouldInitializePlayerOAsBot()
     {
-        // Arrange & Act
         var game = new Game();
 
-        // Assert
         var playerOField = typeof(Game).GetField("_playerO", BindingFlags.NonPublic | BindingFlags.Instance);
         var playerO = playerOField?.GetValue(game) as Player;
 
@@ -87,10 +76,8 @@ public class GameUnitTest
     [Fact]
     public void Constructor_ShouldInitializePlayerXAsHuman()
     {
-        // Arrange & Act
         var game = new Game();
 
-        // Assert
         var playerXField = typeof(Game).GetField("_playerX", BindingFlags.NonPublic | BindingFlags.Instance);
         var playerX = playerXField?.GetValue(game) as Player;
 
@@ -101,16 +88,13 @@ public class GameUnitTest
     [Fact]
     public void SwitchPlayer_ShouldAlternateFromPlayerXToPlayerO()
     {
-        // Arrange
         var game = new Game();
         var switchPlayerMethod = typeof(Game).GetMethod("SwitchPlayer", BindingFlags.NonPublic | BindingFlags.Instance);
         var currentPlayerField = typeof(Game).GetField("_currentPlayer", BindingFlags.NonPublic | BindingFlags.Instance);
         var playerOField = typeof(Game).GetField("_playerO", BindingFlags.NonPublic | BindingFlags.Instance);
 
-        // Act
         switchPlayerMethod?.Invoke(game, null);
 
-        // Assert
         var currentPlayer = currentPlayerField?.GetValue(game);
         var playerO = playerOField?.GetValue(game);
         Assert.Equal(playerO, currentPlayer);
@@ -119,17 +103,14 @@ public class GameUnitTest
     [Fact]
     public void SwitchPlayer_ShouldAlternateFromPlayerOToPlayerX()
     {
-        // Arrange
         var game = new Game();
         var switchPlayerMethod = typeof(Game).GetMethod("SwitchPlayer", BindingFlags.NonPublic | BindingFlags.Instance);
         var currentPlayerField = typeof(Game).GetField("_currentPlayer", BindingFlags.NonPublic | BindingFlags.Instance);
         var playerXField = typeof(Game).GetField("_playerX", BindingFlags.NonPublic | BindingFlags.Instance);
 
-        // Act - Switch twice pour revenir à X
         switchPlayerMethod?.Invoke(game, null);
         switchPlayerMethod?.Invoke(game, null);
 
-        // Assert
         var currentPlayer = currentPlayerField?.GetValue(game);
         var playerX = playerXField?.GetValue(game);
         Assert.Equal(playerX, currentPlayer);
@@ -138,7 +119,6 @@ public class GameUnitTest
     [Fact]
     public void SwitchPlayer_CalledMultipleTimes_ShouldAlternateBetweenPlayers()
     {
-        // Arrange
         var game = new Game();
         var switchPlayerMethod = typeof(Game).GetMethod("SwitchPlayer", BindingFlags.NonPublic | BindingFlags.Instance);
         var currentPlayerField = typeof(Game).GetField("_currentPlayer", BindingFlags.NonPublic | BindingFlags.Instance);
@@ -148,7 +128,6 @@ public class GameUnitTest
         var playerX = playerXField?.GetValue(game);
         var playerO = playerOField?.GetValue(game);
 
-        // Act & Assert - Vérifier plusieurs alternances
         for (int i = 0; i < 10; i++)
         {
             switchPlayerMethod?.Invoke(game, null);
